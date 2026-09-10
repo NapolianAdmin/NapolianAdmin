@@ -74,6 +74,10 @@ Generated from my own GitHub activity and refreshed on a schedule.
 
 <!-- SNAKE: contribution snake, pushed to the output branch by .github/workflows/snake.yml on its first run -->
 <!-- SNAKE:START -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NapolianAdmin/NapolianAdmin/output/snake-dark.svg">
+  <img alt="My GitHub contribution graph rendered as a snake game" src="https://raw.githubusercontent.com/NapolianAdmin/NapolianAdmin/output/snake-light.svg">
+</picture>
 <!-- SNAKE:END -->
 
 ## Research
