@@ -4,10 +4,15 @@
 // from the GitHub GraphQL API. Node built-ins only (uses the global fetch), zero npm deps.
 //
 // Data shown:
-//   - viewer.contributionsCollection.contributionCalendar.totalContributions
+//   - user(login: "NapolianAdmin").contributionsCollection.contributionCalendar.totalContributions
 //     (already public on the profile; leaks nothing)
 //   - language mix aggregated over PUBLIC, non-fork repositories OWNED by the user only.
 //     Private-repo data is never requested and never rendered.
+//
+// The query is scoped by user(login: "NapolianAdmin") so it resolves to the
+// profile owner regardless of which identity the token belongs to. This lets it
+// run on the stock Actions GITHUB_TOKEN (identity: github-actions[bot]); every
+// field read here is available under user(login:) with a basic read-only token.
 //
 // Requires GITHUB_TOKEN in the environment.
 // Fails loud (exit 1, writes nothing) on any API/transport error, a GraphQL error
@@ -45,7 +50,7 @@ const THEMES = {
 };
 
 const QUERY = `query {
-  viewer {
+  user(login: "NapolianAdmin") {
     login
     contributionsCollection {
       contributionCalendar { totalContributions }
@@ -97,23 +102,23 @@ async function queryApi(token) {
   if (json.errors) {
     fail('GraphQL error: ' + JSON.stringify(json.errors));
   }
-  const viewer = json && json.data && json.data.viewer;
-  if (!viewer) fail('GraphQL response has no data.viewer');
-  return viewer;
+  const account = json && json.data && json.data.user;
+  if (!account) fail('GraphQL response has no data.user');
+  return account;
 }
 
-function aggregate(viewer) {
+function aggregate(account) {
   const total =
-    viewer.contributionsCollection &&
-    viewer.contributionsCollection.contributionCalendar &&
-    viewer.contributionsCollection.contributionCalendar.totalContributions;
+    account.contributionsCollection &&
+    account.contributionsCollection.contributionCalendar &&
+    account.contributionsCollection.contributionCalendar.totalContributions;
   if (typeof total !== 'number' || !Number.isFinite(total)) {
     fail('totalContributions missing or not a number');
   }
 
-  const repos = (viewer.repositories && viewer.repositories.nodes) || [];
+  const repos = (account.repositories && account.repositories.nodes) || [];
   const repoCount =
-    (viewer.repositories && viewer.repositories.totalCount) || repos.length;
+    (account.repositories && account.repositories.totalCount) || repos.length;
 
   const bySize = new Map();
   for (const repo of repos) {
@@ -149,7 +154,7 @@ function aggregate(viewer) {
   }));
 
   return {
-    login: viewer.login,
+    login: account.login,
     contributions: total,
     repoCount,
     langTotal,
@@ -289,8 +294,8 @@ async function main() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) fail('GITHUB_TOKEN is not set');
 
-  const viewer = await queryApi(token);
-  const model = aggregate(viewer);
+  const account = await queryApi(token);
+  const model = aggregate(account);
 
   const light = renderSvg(model, 'light');
   const dark = renderSvg(model, 'dark');

@@ -3,12 +3,12 @@ name: Render stats
 # Regenerates assets/stats-light.svg and assets/stats-dark.svg from the GitHub
 # GraphQL API using scripts/render-stats.mjs (Node built-ins only, zero deps).
 #
-# The script queries `viewer`, so it needs a token whose viewer is the profile
-# owner (NapolianAdmin), NOT the Actions bot. Provide a repo secret named
-# PROFILE_METRICS_TOKEN (a PAT with read:user; classic `public_repo` or a
-# fine-grained token with public-repo read is enough - it only ever reads public
-# data). Without that secret the GITHUB_TOKEN env below is empty and the job
-# fails loud ("GITHUB_TOKEN is not set"); it never writes a placeholder asset.
+# The script queries user(login: "NapolianAdmin"), so it resolves to the profile
+# owner no matter which identity the token belongs to. It runs on the stock
+# secrets.GITHUB_TOKEN (identity: github-actions[bot]) with no repo secret setup
+# required - every field read is public and available to a basic read-only token.
+# If the token env is ever empty the job fails loud ("GITHUB_TOKEN is not set")
+# and never writes a placeholder asset.
 #
 # Targets the default branch. Inert until `main` exists as the default branch.
 
@@ -36,7 +36,7 @@ jobs:
         # Exits 1 and writes nothing on any API/transport error, a GraphQL error
         # payload, a malformed response, or a genuinely empty account.
         env:
-          GITHUB_TOKEN: ${{ secrets.PROFILE_METRICS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/render-stats.mjs
 
       - name: Commit SVGs if changed
