@@ -1,0 +1,14 @@
+Technology marks in this directory are from DevIcon (https://devicon.dev),
+released under the MIT License. Copyright (c) 2015 konpa and DevIcon contributors.
+Full license: https://github.com/devicons/devicon/blob/master/LICENSE
+
+Each file here is the unmodified DevIcon "<name>-original" glyph placed on a
+plain white rounded tile with a 1px neutral border. The tile is added by this
+repository so every mark stays legible on both the light and dark GitHub
+themes without swapping assets; the glyph artwork itself is unchanged.
+
+Glyphs vendored (from icons/<name>/<name>-original.svg in the DevIcon repo):
+  nextjs, typescript, python, fastapi, supabase, githubactions, vercel, react
+
+No DevIcon mark exists for "Render"; that stack item is shown as plain text
+in the project card instead.

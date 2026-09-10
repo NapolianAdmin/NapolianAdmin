@@ -1,4 +1,8 @@
 <!-- BANNER -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner-dark.svg">
+  <img alt="Ninad Rai" src="./assets/banner-light.svg">
+</picture>
 
 <!-- PROFILE-IMAGE -->
 <!--
@@ -15,6 +19,11 @@ currently: building Vertex Terminal, a global investment research platform
 learning: the maths and systems behind modern AI
 ```
 
+<!-- Headshot: once assets/headshot.jpg (square, about 512x512) exists, uncomment the line below.
+     It floats to the top-right and the intro text wraps to its left; nothing else changes.
+<img src="./assets/headshot.jpg" alt="Ninad Rai" align="right" width="160" height="160">
+-->
+
 I build software that collects, structures, and analyses large amounts of data, mostly in finance and health. Recent work is full-stack with a Python data layer behind it, run on free-tier infrastructure so the whole system stays cheap to host and straightforward to reproduce. Right now the day-to-day is Vertex Terminal and a bat vocalization pipeline.
 
 ## Selected work
@@ -24,6 +33,16 @@ I build software that collects, structures, and analyses large amounts of data, 
 
 Bloomberg-style research terminal for global markets, covering watchlists, company profiles, SEC EDGAR Form 4 insider trades, and AI summaries of filings and news. Built and deployed end to end on free-tier infrastructure.
 
+<p>
+  <img src="./assets/icons/nextjs.svg" alt="Next.js" title="Next.js" height="28">
+  <img src="./assets/icons/typescript.svg" alt="TypeScript" title="TypeScript" height="28">
+  <img src="./assets/icons/python.svg" alt="Python" title="Python" height="28">
+  <img src="./assets/icons/fastapi.svg" alt="FastAPI" title="FastAPI" height="28">
+  <img src="./assets/icons/supabase.svg" alt="Supabase" title="Supabase" height="28">
+  <img src="./assets/icons/githubactions.svg" alt="GitHub Actions" title="GitHub Actions" height="28">
+  <img src="./assets/icons/vercel.svg" alt="Vercel" title="Vercel" height="28">
+</p>
+
 Stack: Next.js, TypeScript, Python, FastAPI, Supabase, GitHub Actions, Vercel, Render
 
 `Private · opening soon`
@@ -31,6 +50,12 @@ Stack: Next.js, TypeScript, Python, FastAPI, Supabase, GitHub Actions, Vercel, R
 ### KayaRift 3.0
 
 AI health platform built around organ simulation, gamification, and multimodal input.
+
+<p>
+  <img src="./assets/icons/react.svg" alt="React" title="React" height="28">
+  <img src="./assets/icons/nextjs.svg" alt="Next.js" title="Next.js" height="28">
+  <img src="./assets/icons/typescript.svg" alt="TypeScript" title="TypeScript" height="28">
+</p>
 
 Stack: React, Next.js, TypeScript
 

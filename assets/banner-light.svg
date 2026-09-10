@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="Ninad Rai">
+  <title>Ninad Rai</title>
+  <rect width="1200" height="300" fill="#fcfcfb"/>
+  <text x="72" y="138" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="76" font-weight="600" letter-spacing="3" fill="#111418">NINAD RAI</text>
+  <text x="74" y="176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="400" letter-spacing="1.5" fill="#55606b">AI and data-heavy software  &#183;  Mumbai, India</text>
+  <line x1="74" y1="212" x2="1128" y2="212" stroke="#b7bcc3" stroke-width="1.25"/>
+  <path d="M74 212v14 M110 212v8 M146 212v8 M182 212v8 M218 212v8 M254 212v14 M290 212v8 M326 212v8 M362 212v8 M398 212v8 M434 212v14 M470 212v8 M506 212v8 M542 212v8 M578 212v8 M614 212v14 M650 212v8 M686 212v8 M722 212v8 M758 212v8 M794 212v14 M830 212v8 M866 212v8 M902 212v8 M938 212v8 M974 212v14 M1010 212v8 M1046 212v8 M1082 212v8 M1118 212v8" stroke="#b7bcc3" stroke-width="1"/>
+  <line x1="74" y1="212" x2="636" y2="212" stroke="#1f6f5c" stroke-width="3"/>
+  <rect x="633" y="209" width="6" height="6" fill="#1f6f5c"/>
+</svg>
