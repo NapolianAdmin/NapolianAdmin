@@ -86,7 +86,7 @@ Generated from my own GitHub activity and refreshed on a schedule.
 
 Director of Digital Growth at Project GRID, a student-run nonprofit that runs the Aurora and N3C hackathon tracks in association with IIT Delhi.
 
-Three-time Lodha Genius Programme Scholar, Ashoka University (2023, 2024, 2025).
+Three-time Lodha Genius Programme Scholar, Ashoka University.
 
 ## Currently
 
