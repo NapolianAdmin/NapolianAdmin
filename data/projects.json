@@ -1,7 +1,7 @@
 [
   {
     "name": "Vertex Terminal",
-    "tagline": "Bloomberg-style global investment research platform — market watchlist, company profiles, SEC EDGAR Form 4 insider trades, AI filing/news summariser.",
+    "tagline": "Bloomberg-style research terminal for global markets, covering watchlists, company profiles, SEC EDGAR Form 4 insider trades, and AI summaries of filings and news.",
     "stack": ["Next.js", "TypeScript", "Python", "FastAPI", "Supabase", "GitHub Actions", "Vercel", "Render"],
     "status": "private-soon",
     "url": null,
@@ -9,7 +9,7 @@
   },
   {
     "name": "KayaRift 3.0",
-    "tagline": "AI health platform — organ simulation, gamification, and multimodal AI.",
+    "tagline": "AI health platform built around organ simulation, gamification, and multimodal input.",
     "stack": ["React", "Next.js", "TypeScript"],
     "status": "private-soon",
     "url": null,
