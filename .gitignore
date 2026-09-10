@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+.venv/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# Build output
+dist/
+
+# OS
+.DS_Store
