@@ -1,0 +1,52 @@
+name: Render stats
+
+# Regenerates assets/stats-light.svg and assets/stats-dark.svg from the GitHub
+# GraphQL API using scripts/render-stats.mjs (Node built-ins only, zero deps).
+#
+# The script queries `viewer`, so it needs a token whose viewer is the profile
+# owner (NapolianAdmin), NOT the Actions bot. Provide a repo secret named
+# PROFILE_METRICS_TOKEN (a PAT with read:user; classic `public_repo` or a
+# fine-grained token with public-repo read is enough - it only ever reads public
+# data). Without that secret the GITHUB_TOKEN env below is empty and the job
+# fails loud ("GITHUB_TOKEN is not set"); it never writes a placeholder asset.
+#
+# Targets the default branch. Inert until `main` exists as the default branch.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 05:43 UTC (off-peak, not the top of the hour).
+    - cron: '43 5 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-stats
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Render stats SVGs
+        # Exits 1 and writes nothing on any API/transport error, a GraphQL error
+        # payload, a malformed response, or a genuinely empty account.
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_METRICS_TOKEN }}
+        run: node scripts/render-stats.mjs
+
+      - name: Commit SVGs if changed
+        run: |
+          if git diff --quiet -- assets/stats-light.svg assets/stats-dark.svg; then
+            echo "Stats SVGs already up to date; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/stats-light.svg assets/stats-dark.svg
+          git commit -m "chore: refresh contribution and language stats"
+          git push

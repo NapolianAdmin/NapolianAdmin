@@ -1,0 +1,53 @@
+name: Snake
+
+# Generates the contribution snake animation (light + dark SVG) with Platane/snk
+# and pushes the result to a dedicated `output` branch. The README's
+# <!-- SNAKE:START --> / <!-- SNAKE:END --> block stays empty until this workflow
+# runs for the first time, so nothing renders (and nothing breaks) before then.
+#
+# This element is a keep/cut candidate for Phase 7 QA. It is fully self-contained:
+# removing it later means deleting this file and clearing the SNAKE:START/END pair
+# in README.md - nothing else references it.
+#
+# Targets the default branch. Inert until `main` exists as the default branch.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 03:29 UTC (off-peak; a different minute from render-stats).
+    - cron: '29 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snake
+  cancel-in-progress: false
+
+jobs:
+  snake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Generate snake SVGs
+        uses: Platane/snk@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3.5.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-light.svg
+            dist/snake-dark.svg?palette=github-dark
+
+      - name: Push generated SVGs to the output branch
+        run: |
+          cd dist
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snake-light.svg snake-dark.svg
+          git commit -q -m "chore: regenerate contribution snake"
+          git branch -M output
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

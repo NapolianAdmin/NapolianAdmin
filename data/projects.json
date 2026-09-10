@@ -1,7 +1,7 @@
 [
   {
     "name": "Vertex Terminal",
-    "tagline": "Bloomberg-style research terminal for global markets, covering watchlists, company profiles, SEC EDGAR Form 4 insider trades, and AI summaries of filings and news.",
+    "tagline": "Bloomberg-style research terminal for global markets, covering watchlists, company profiles, SEC EDGAR Form 4 insider trades, and AI summaries of filings and news. Built and deployed end to end on free-tier infrastructure.",
     "stack": ["Next.js", "TypeScript", "Python", "FastAPI", "Supabase", "GitHub Actions", "Vercel", "Render"],
     "status": "private-soon",
     "url": null,

@@ -1,0 +1,49 @@
+name: Render projects
+
+# Regenerates the Selected Work block in README.md from data/projects.json
+# using scripts/render-projects.mjs (Node built-ins only, zero dependencies).
+#
+# This workflow targets the default branch. It only starts running once `main`
+# exists and is the default branch; it is inert on feat/profile-launch.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - data/projects.json
+      - scripts/render-projects.mjs
+  schedule:
+    # Weekly, Monday 04:17 UTC (off-peak, avoids the top of the hour).
+    - cron: '17 4 * * 1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-projects
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Render Selected Work block
+        # Fails the job (exit 1, writes nothing) if data/projects.json is missing,
+        # invalid JSON, not an array, or has zero entries.
+        run: node scripts/render-projects.mjs
+
+      - name: Commit README if changed
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "README.md already up to date; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: refresh Selected Work from data/projects.json"
+          git push
