@@ -57,7 +57,7 @@ const QUERY = `query {
     }
     repositories(ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC, first: 100) {
       totalCount
-      nodes { languages(first: 20) { edges { size node { name } } } }
+      nodes { name nameWithOwner languages(first: 20) { edges { size node { name } } } }
     }
   }
 }`;
@@ -122,6 +122,12 @@ function aggregate(account) {
 
   const bySize = new Map();
   for (const repo of repos) {
+    // The profile/dotfiles repo (NapolianAdmin/NapolianAdmin) holds this
+    // automation's own .mjs scripts. It is conventionally excluded from a
+    // person's language stats, so skip it in the language aggregation.
+    if (repo && (repo.name === 'NapolianAdmin' || repo.nameWithOwner === 'NapolianAdmin/NapolianAdmin')) {
+      continue;
+    }
     const edges = (repo.languages && repo.languages.edges) || [];
     for (const edge of edges) {
       const name = edge && edge.node && edge.node.name;
